@@ -7,7 +7,6 @@ import android.view.MenuItem;
 
 import com.andrea.com.bakingtime.Fragment.ExoPlayerFragment;
 import com.andrea.com.bakingtime.Fragment.InstructionFragment;
-import com.andrea.com.bakingtime.Model.Steps;
 import com.andrea.com.bakingtime.R;
 
 public class ViewStepActivity extends AppCompatActivity {
@@ -22,7 +21,7 @@ public class ViewStepActivity extends AppCompatActivity {
 
         FragmentTransaction mTransaction = getSupportFragmentManager().beginTransaction();
         ExoPlayerFragment exoPlayerFragment = new ExoPlayerFragment();
-        exoPlayerFragment.setMediaUri(getIntent().getStringExtra(DetailActivity.CONTENT_KEY_VIDEO));
+        exoPlayerFragment.setDataMediaUri(getIntent().getStringExtra(DetailActivity.CONTENT_KEY_VIDEO));
         mTransaction.replace(R.id.container_exo_player, exoPlayerFragment);
 
         InstructionFragment instructionFragment = new InstructionFragment();

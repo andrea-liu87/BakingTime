@@ -80,7 +80,7 @@ public class ExoPlayerFragment extends Fragment {
         }
     }
 
-    public void setMediaUri(String url){
+    public void setDataMediaUri(String url){
         mediaUri = url;
     }
 

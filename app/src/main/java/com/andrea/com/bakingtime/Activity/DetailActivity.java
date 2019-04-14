@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -76,7 +75,7 @@ public class DetailActivity extends AppCompatActivity implements
 
         if (mTwoPane == true){
             ExoPlayerFragment exoPlayerFragment = new ExoPlayerFragment();
-            exoPlayerFragment.setMediaUri(videoUrl);
+            exoPlayerFragment.setDataMediaUri(videoUrl);
             mFragmentManager.beginTransaction().replace(R.id.container_exo_player, exoPlayerFragment).commit();
 
             InstructionFragment instructionFragment = new InstructionFragment();
