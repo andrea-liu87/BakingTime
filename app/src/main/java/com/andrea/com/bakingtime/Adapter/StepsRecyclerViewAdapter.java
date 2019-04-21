@@ -1,7 +1,6 @@
 package com.andrea.com.bakingtime.Adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,7 @@ public class StepsRecyclerViewAdapter extends RecyclerView.Adapter<StepsRecycler
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(mData);
+                    mListener.onListFragmentInteraction(mData[position]);
                 }
             }
         });
@@ -56,10 +55,10 @@ public class StepsRecyclerViewAdapter extends RecyclerView.Adapter<StepsRecycler
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mContentView;
+        final View mView;
+        final TextView mContentView;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
             mContentView = (TextView) view.findViewById(R.id.item_steps);

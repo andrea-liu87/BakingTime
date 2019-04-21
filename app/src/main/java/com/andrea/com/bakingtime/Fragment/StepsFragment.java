@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +22,6 @@ import com.andrea.com.bakingtime.R;
  * interface.
  */
 public class StepsFragment extends Fragment {
-
-    private int mColumnCount = 1;
 
     private Steps[] mData;
 
@@ -52,6 +48,7 @@ public class StepsFragment extends Fragment {
 
         Context context = view.getContext();
         RecyclerView recyclerView = view.findViewById(R.id.recycl_view_steps_fragment);
+        int mColumnCount = 1;
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         recyclerView.setAdapter(new StepsRecyclerViewAdapter(mData, mListener));
 
@@ -87,6 +84,6 @@ public class StepsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Steps[] steps);
+        void onListFragmentInteraction(Steps steps);
     }
 }

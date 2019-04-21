@@ -53,11 +53,10 @@
         android:layout_weight="3"
         android:orientation="vertical">
 
-        <fragment
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:name="com.andrea.com.bakingtime.Fragment.ExoPlayerFragment"
             android:id="@+id/container_exo_player"/>
 
         <FrameLayout
@@ -66,6 +65,16 @@
             android:layout_weight="2"
             android:layout_marginTop="16dp"
             android:id="@+id/container_instruction"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="0.5"
+            style="@style/ItemList"
+            android:text="@string/button_next"
+            android:onClick="buttonNext"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
 </LinearLayout>

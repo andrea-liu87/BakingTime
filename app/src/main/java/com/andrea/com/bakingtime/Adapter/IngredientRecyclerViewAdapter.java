@@ -39,11 +39,11 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView itemListTV1;
-        public final TextView itemListTV2;
+        final View mView;
+        final TextView itemListTV1;
+        final TextView itemListTV2;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
             itemListTV1 = view.findViewById(R.id.ingredient_item1);
@@ -51,7 +51,7 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
         }
 
         void bindViewHolder(Ingredients ingredient){
-            itemListTV1.setText(Double.toString(ingredient.getQuantity())
+            itemListTV1.setText(ingredient.getQuantity()
             + " " + ingredient.getMeasure());
             itemListTV2.setText(ingredient.getIngredient());
         }

@@ -2,20 +2,16 @@ package com.andrea.com.bakingtime.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
 
-import com.google.gson.JsonArray;
-
-import java.util.ArrayList;
 
 public class Recipe implements Parcelable {
 
-    private  int id;
-    private String name;
-    private Ingredients[] ingredients;
-    private Steps[] steps;
-    private int servings;
-    private String image;
+    private final int id;
+    private final String name;
+    private final Ingredients[] ingredients;
+    private final Steps[] steps;
+    private final int servings;
+    private final String image;
 
     public Recipe(int id, String name, Ingredients[] ingredients, Steps[] steps, int servings, String image) {
         this.id = id;

@@ -58,7 +58,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     /**
      * Inner class for RecyclerView Holder model
      */
-    class ViewHolder extends RecyclerView.ViewHolder implements View
+    public class ViewHolder extends RecyclerView.ViewHolder implements View
             .OnClickListener{
 
         final TextView itemTv;

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.cli
         display.getSize(size);
         int widthScreen = size.x;
         int noOfCol =1;
-        if(widthScreen > 1600){noOfCol = 3;}
+        if(widthScreen > 1400){noOfCol = 3;}
 
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, noOfCol);
         recipeRecyView.setLayoutManager(mLayoutManager);

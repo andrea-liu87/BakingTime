@@ -3,11 +3,19 @@ package com.andrea.com.bakingtime.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import ckm.simple.sql_provider.annotation.SimpleSQLColumn;
+import ckm.simple.sql_provider.annotation.SimpleSQLTable;
+@SimpleSQLTable(table = "ingredients", provider = "IngredientsProvider")
 public class Ingredients implements Parcelable {
 
-    double quantity;
-    String measure;
+    private double quantity;
+    private String measure;
+
+    @SimpleSQLColumn("col_ingredients")
+    private
     String ingredient;
+
+    public Ingredients (){}
 
     public Ingredients(double quantity, String measure, String ingredient) {
         this.quantity = quantity;
@@ -57,5 +65,17 @@ public class Ingredients implements Parcelable {
 
     public String getIngredient() {
         return ingredient;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setMeasure(String measure) {
+        this.measure = measure;
+    }
+
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
     }
 }

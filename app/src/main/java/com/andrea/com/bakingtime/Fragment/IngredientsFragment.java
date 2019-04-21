@@ -1,6 +1,5 @@
 package com.andrea.com.bakingtime.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,8 +20,6 @@ import com.andrea.com.bakingtime.R;
  * <p/>
  */
 public class IngredientsFragment extends Fragment {
-
-    private int mColumnCount = 1;
 
     private Ingredients[] ingredientsData;
 
@@ -47,6 +44,7 @@ public class IngredientsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ingredient_layout, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycl_view_ingredient_fragment);
+        int mColumnCount = 1;
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), mColumnCount));
         recyclerView.setAdapter(new IngredientRecyclerViewAdapter(ingredientsData));
 

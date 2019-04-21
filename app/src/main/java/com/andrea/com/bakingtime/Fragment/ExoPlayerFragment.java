@@ -1,19 +1,20 @@
 package com.andrea.com.bakingtime.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.andrea.com.bakingtime.Activity.DetailActivity;
-import com.andrea.com.bakingtime.Model.Steps;
+import com.andrea.com.bakingtime.Activity.ViewStepActivity;
+import com.andrea.com.bakingtime.Model.RecipeTable;
 import com.andrea.com.bakingtime.R;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -32,32 +33,47 @@ public class ExoPlayerFragment extends Fragment {
 
     private SimpleExoPlayer mExoPlayer;
     private SimpleExoPlayerView mExoPlayerView;
-    private TextView textView;
 
     private String mediaUri;
+    private Context context;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getActivity().getApplicationContext();
+
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            int stepNo = bundle.getInt(ViewStepActivity.FRAGMENT_KEY_DATA);
+        getData(stepNo);}
+    }
+
+    private void getData(int id){
+        String[] selectionArgs = {Integer.toString(id)};
+        Cursor cursor = context.getContentResolver().query(RecipeTable.CONTENT_URI,
+                null,
+                RecipeTable.FIELD_COL_ID + " = ?",
+                selectionArgs,
+                null
+        );
+        cursor.moveToFirst();
+        mediaUri = cursor.getString(cursor.getColumnIndex(RecipeTable.FIELD_COL_URL));
+        cursor.close();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exoplayer, container, false);
-
         mExoPlayerView = view.findViewById(R.id.simple_exo_player_view);
-        textView = view.findViewById(R.id.exoplayer_tv);
 
-        if (mediaUri == null ){
-            mExoPlayerView.setVisibility(View.INVISIBLE);
-            textView.setVisibility(View.VISIBLE);
-            textView.setText("No media is found for this recipe");
-        } else {
-            textView.setVisibility(View.INVISIBLE);
-            mExoPlayerView.setVisibility(View.VISIBLE);
-            initializePlayer(getActivity().getApplicationContext(), Uri.parse(mediaUri));
+        if (mediaUri == null){
+            Toast.makeText(context, "No video for this step", Toast.LENGTH_LONG).show();
+            Log.d("TAG", "media uri is null");
         }
+        if (mediaUri != null ){
+            initializePlayer(Uri.parse(mediaUri));
+       }
         return view;
     }
 
@@ -65,7 +81,7 @@ public class ExoPlayerFragment extends Fragment {
      * This method to initialize ExoMediaPlayer
      * @param uri Video uri to be played
      */
-    private void initializePlayer(Context context, Uri uri){
+    private void initializePlayer(Uri uri){
         if (mExoPlayer == null){
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
@@ -78,10 +94,6 @@ public class ExoPlayerFragment extends Fragment {
                     new DefaultExtractorsFactory(), null, null);
             mExoPlayer.prepare(mediaSource);
         }
-    }
-
-    public void setDataMediaUri(String url){
-        mediaUri = url;
     }
 
     @Override

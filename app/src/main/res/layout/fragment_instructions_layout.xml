@@ -12,14 +12,4 @@
             style="@style/ItemList"
             android:id="@+id/steps_detail_tv"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/steps_detail_button"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            style="@style/ItemList"
-            android:text="@string/button_next"
-            android:textAllCaps="false"/>
-
 </LinearLayout>

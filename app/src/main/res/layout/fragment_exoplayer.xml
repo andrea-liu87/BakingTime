@@ -14,12 +14,5 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/exoplayer_tv"
-        android:visibility="invisible"
-        android:textSize="20sp"
-        android:layout_gravity="center"/>
 
 </LinearLayout>
