@@ -4,11 +4,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.andrea.com.bakingtime.Fragment.StepsFragment.OnListFragmentInteractionListener;
 import com.andrea.com.bakingtime.Model.Steps;
 import com.andrea.com.bakingtime.R;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -57,15 +59,25 @@ public class StepsRecyclerViewAdapter extends RecyclerView.Adapter<StepsRecycler
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         final TextView mContentView;
+        final ImageView mThumbnail;
 
         ViewHolder(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.item_steps);
+            mContentView = view.findViewById(R.id.item_steps);
+            mThumbnail = view.findViewById(R.id.thumbnail_image);
         }
 
         void bindViewHolder (Steps step){
             mContentView.setText(step.getDescription());
+
+            if (step.getThumbnailURL() == null || step.getThumbnailURL().equals("")){}
+            else {
+            Picasso.get()
+                    .load(step.getThumbnailURL())
+                    .placeholder(R.drawable.user_placeholder)
+                    .error(R.drawable.user_placeholder)
+                    .into(mThumbnail);}
         }
     }
 }

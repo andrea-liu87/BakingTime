@@ -2,6 +2,7 @@ package com.andrea.com.bakingtime.Activity;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -16,6 +17,8 @@ public class ViewStepActivity extends AppCompatActivity {
 
     private int stepNo;
     public static final String FRAGMENT_KEY_DATA = "STEPNO";
+    private final String KEY_STEPNO = "saved-stepNO";
+    private ExoPlayerFragment exoPlayerFragment;
 
 
     @Override
@@ -25,8 +28,21 @@ public class ViewStepActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        if (savedInstanceState != null){
+            stepNo = savedInstanceState.getInt(KEY_STEPNO);
+            exoPlayerFragment = (ExoPlayerFragment) getSupportFragmentManager().getFragment(savedInstanceState, ExoPlayerFragment.KEY_POSITION);
+            Bundle bundle = new Bundle();
+            bundle.putInt(FRAGMENT_KEY_DATA,stepNo);
+
+            FragmentManager mFragmentManager = getSupportFragmentManager();
+            mFragmentManager.beginTransaction().replace(R.id.container_exo_player, exoPlayerFragment).commit();
+
+            InstructionFragment instructionFragment = new InstructionFragment();
+            instructionFragment.setArguments(bundle);
+            mFragmentManager.beginTransaction().replace(R.id.container_instruction, instructionFragment).commit();
+        }else{
         stepNo = getIntent().getIntExtra(DetailActivity.KEY_STEPNO,0);
-        inflateFragmentwithStepNo(stepNo);
+            inflateFragmentwithStepNo(stepNo);}
     }
 
     @Override
@@ -43,7 +59,7 @@ public class ViewStepActivity extends AppCompatActivity {
         bundle.putInt(FRAGMENT_KEY_DATA,id);
 
         FragmentManager mFragmentManager = getSupportFragmentManager();
-        ExoPlayerFragment exoPlayerFragment = new ExoPlayerFragment();
+        exoPlayerFragment = new ExoPlayerFragment();
         exoPlayerFragment.setArguments(bundle);
         mFragmentManager.beginTransaction().replace(R.id.container_exo_player, exoPlayerFragment).commit();
 
@@ -65,5 +81,12 @@ public class ViewStepActivity extends AppCompatActivity {
         else {stepNo = 0;}
         inflateFragmentwithStepNo(stepNo);
         cursor.close();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_STEPNO, stepNo);
+        getSupportFragmentManager().putFragment(outState, ExoPlayerFragment.KEY_POSITION, exoPlayerFragment );
     }
 }

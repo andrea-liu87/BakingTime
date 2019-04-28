@@ -22,6 +22,7 @@ public class Steps implements Parcelable {
     private
     String videoURL;
 
+    @SimpleSQLColumn("col_thumbnailUrl")
     private String thumbnailURL;
 
     public Steps(){}

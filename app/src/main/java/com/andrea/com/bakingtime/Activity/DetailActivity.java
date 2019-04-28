@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,10 @@ public class DetailActivity extends AppCompatActivity implements
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        if (savedInstanceState != null){
+            stepNo = savedInstanceState.getInt(KEY_STEPNO);
+        }
+
         Recipe mRecipe = getIntent().getParcelableExtra(Intent.EXTRA_PACKAGE_NAME);
         saveIngredients(mRecipe.getIngredients());
         saveSteps(mRecipe.getSteps());
@@ -45,11 +50,14 @@ public class DetailActivity extends AppCompatActivity implements
 
         if(findViewById(R.id.container_exo_player) != null){
             mTwoPane = true;
-            ExoPlayerFragment exoPlayerFragment = new ExoPlayerFragment();
-            mFragmentManager.beginTransaction().replace(R.id.container_exo_player, exoPlayerFragment).commit();
+            if (stepNo > 0){inflateFragmentwithStepNo(stepNo);
+            }else {
+                ExoPlayerFragment exoPlayerFragment = new ExoPlayerFragment();
+                mFragmentManager.beginTransaction().replace(R.id.container_exo_player, exoPlayerFragment).commit();
 
-            InstructionFragment instructionFragment = new InstructionFragment();
-            mFragmentManager.beginTransaction().replace(R.id.container_instruction, instructionFragment).commit();
+                InstructionFragment instructionFragment = new InstructionFragment();
+                mFragmentManager.beginTransaction().replace(R.id.container_instruction, instructionFragment).commit();
+            }
         }
         else{
         TextView title = findViewById(R.id.detail_title_tv);
@@ -138,5 +146,12 @@ public class DetailActivity extends AppCompatActivity implements
         else {stepNo = 0;}
         inflateFragmentwithStepNo(stepNo);
         cursor.close();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (stepNo > 0){
+        outState.putInt(KEY_STEPNO, stepNo);}
     }
 }
